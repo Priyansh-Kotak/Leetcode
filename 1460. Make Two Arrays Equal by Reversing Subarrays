@@ -1,0 +1,137 @@
+Java 
+approach 1: - 
+
+class Solution {
+    public boolean canBeEqual(int[] target, int[] arr) {
+        int n = arr.length;
+        // target array hashmap
+        Map<Integer, Integer> mp = new HashMap<>();
+
+        for(int i = 0 ; i < n; i++){
+            int val = mp.getOrDefault(target[i], 0)+1;
+
+            mp.put(target[i], val);
+        }
+        // arr array hashmap
+        Map<Integer, Integer> amp = new HashMap<>();
+
+        for(int i = 0 ;i < n; i++){
+            int val = amp.getOrDefault(arr[i], 0)+1;
+            amp.put(arr[i], val);
+        }
+
+        for(int key: amp.keySet()){
+            int a = amp.get(key);
+
+            if(mp.containsKey(key)){
+                if(mp.get(key) != a){
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+
+Approach 2: - 
+
+class Solution {
+    public boolean canBeEqual(int[] target, int[] arr) {
+        int n = target.length, m = arr.length;
+
+        if (n != m) return false;
+
+        int[] map = new int[1001];
+
+        for (int i = 0; i < n; i++) {
+            map[target[i]]++;
+            map[arr[i]]--;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (map[target[i]] != 0 || map[arr[i]] != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+
+C++ :
+
+Approach 1: -
+
+#include <vector>
+#include <unordered_map>
+
+class Solution {
+public:
+    bool canBeEqual(std::vector<int>& target, std::vector<int>& arr) {
+        int n = arr.size();
+        
+        // target array hashmap
+        std::unordered_map<int, int> mp;
+        for (int i = 0; i < n; i++) {
+            mp[target[i]]++;
+        }
+        
+        // arr array hashmap
+        std::unordered_map<int, int> amp;
+        for (int i = 0; i < n; i++) {
+            amp[arr[i]]++;
+        }
+
+        // Compare the frequency maps
+        for (const auto& [key, a] : amp) {
+            if (mp.find(key) != mp.end()) {
+                if (mp[key] != a) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+
+
+Approach 2: - 
+
+#include <vector>
+
+class Solution {
+public:
+    bool canBeEqual(std::vector<int>& target, std::vector<int>& arr) {
+        int n = target.size(), m = arr.size();
+
+        if (n != m) return false;
+
+        int map[1001] = {0}; // Initialize an array with size 1001 to 0
+
+        // Increment map values for target array and decrement for arr array
+        for (int i = 0; i < n; i++) {
+            map[target[i]]++;
+            map[arr[i]]--;
+        }
+
+        // Check if all values in map are zero
+        for (int i = 0; i < 1001; i++) {
+            if (map[i] != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+
