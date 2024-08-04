@@ -1,0 +1,69 @@
+JAVA : - 
+
+class Solution {
+    public int rangeSum(int[] nums, int n, int left, int right) {
+        // int n = nums.length;
+        int[] ans = new int[(n*(n+1))/2];
+
+        int k =0;
+        
+        for(int i = 0 ;i < n; i++){
+            int sum = 0;
+            for(int j = i; j < n;j++){
+                sum = sum + nums[j];
+                ans[k] = sum;
+                k++;
+            }
+        }
+
+
+        Arrays.sort(ans);
+
+
+
+        // System.out.println(Arrays.toString(ans));
+
+        int result = 0;
+
+        for(int i = left - 1; i< right; i++){
+            result = (result + ans[i])% 1000000007;
+        }
+
+        return result % 1000000007;
+
+    }
+}
+
+
+
+C++
+
+class Solution {
+public:
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+        vector<int> ans((n * (n + 1)) / 2);
+
+        int k = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                ans[k] = sum;
+                k++;
+            }
+        }
+
+        sort(ans.begin(), ans.end());
+
+        int result = 0;
+        const int MOD = 1000000007;
+
+        for (int i = left - 1; i < right; i++) {
+            result = (result + ans[i]) % MOD;
+        }
+
+        return result;
+    }
+};
+
