@@ -1,0 +1,79 @@
+JAVA CODE: - 
+
+class Solution {
+    public String kthDistinct(String[] arr, int k) {
+        int n = arr.length;
+
+        // int [] ans = new int[n];
+
+        LinkedHashMap<String, Integer> hm = new LinkedHashMap<>();
+
+
+        for(String st : arr){
+            int val = hm.getOrDefault(st, 0) + 1;
+
+            hm.put(st, val);
+        }
+
+        String ans = "";
+
+        System.out.println(hm);
+
+        for(String key: hm.keySet()){
+            if(k > 0){
+                if(hm.get(key) == 1){
+                    ans = key;
+                    k--;
+                }
+            }
+            else{
+                break;
+            }
+            
+        }
+
+        if(k == 0){
+            return ans;
+        }
+
+
+        return "";
+
+        // return ans[j];
+    }
+}
+
+
+
+C++ :- 
+
+class Solution {
+public:
+    std::string kthDistinct(std::vector<std::string>& arr, int k) {
+        int n = arr.size();
+
+        // Use a linked hash map equivalent: unordered_map to store counts and list to maintain order
+        std::unordered_map<std::string, int> hm;
+        std::list<std::string> order;
+
+        // Count occurrences and maintain insertion order
+        for (const std::string& st : arr) {
+            if (hm.find(st) == hm.end()) {
+                order.push_back(st);
+            }
+            hm[st]++;
+        }
+
+        // Iterate over the ordered list to find the k-th distinct element
+        for (const std::string& key : order) {
+            if (hm[key] == 1) {
+                k--;
+                if (k == 0) {
+                    return key;
+                }
+            }
+        }
+
+        return "";
+    }
+};
