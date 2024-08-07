@@ -1,0 +1,92 @@
+class Solution {
+
+
+    private String[] below_twenty = {
+        "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", 
+        "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", 
+        "Seventeen", "Eighteen", "Nineteen"
+    };
+    private String[] TENS = {
+        "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
+    };
+    private String[] TMB = {"", "Thousand", "Million", "Billion"};
+
+    private String check(int num){
+        if(num == 0 ) return "";
+        else if(num < 20) return below_twenty[num] + " ";
+        else if(num < 100) return TENS[num / 10] + " " + check(num % 10);
+        else return below_twenty[num/100] + " Hundred "+ check(num % 100);
+    }
+
+
+    public String numberToWords(int num) {
+        String word = "";
+        int i = 0;
+
+        if(num == 0) return "Zero";
+
+        while(num > 0){
+            if(num % 1000 != 0){
+                
+                word = check(num % 1000) + TMB[i] + " " + word;
+            } 
+
+            num = num / 1000;
+            i++;
+        }
+
+        return word.trim();
+    }
+
+    
+}
+
+
+
+C++ 
+
+
+
+class Solution {
+public:
+    vector<string> below_twenty = {
+        "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", 
+        "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", 
+        "Seventeen", "Eighteen", "Nineteen"
+    };
+
+    vector<string> TENS = {
+        "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
+    };
+
+    vector<string> TMB = {"", "Thousand", "Million", "Billion"};
+
+    string check(int num) {
+        if (num == 0) return "";
+        else if (num < 20) return below_twenty[num] + " ";
+        else if (num < 100) return TENS[num / 10] + " " + check(num % 10);
+        else return below_twenty[num / 100] + " Hundred " + check(num % 100);
+    }
+
+    string numberToWords(int num) {
+        if (num == 0) return "Zero";
+
+        string word = "";
+        int i = 0;
+
+        while (num > 0) {
+            if (num % 1000 != 0) {
+                word = check(num % 1000) + TMB[i] + " " + word;
+            }
+            num = num / 1000;
+            i++;
+        }
+
+        // Trim trailing spaces
+        while (!word.empty() && word.back() == ' ') {
+            word.pop_back();
+        }
+
+        return word;
+    }
+};
