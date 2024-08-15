@@ -1,0 +1,46 @@
+JAVA CODE
+
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int five = 0, ten = 0;
+
+        for(int num : bills){
+            if(num == 5) five++;
+            else if (num == 10) {ten++; five--;}
+            else if(ten > 0) {five--; ten--;}
+            else five = five-3;
+            if(five < 0 ) return false;
+        }
+
+        return true;
+    }
+}
+
+C++ CODE : - 
+
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) {
+        int five = 0, ten = 0;
+
+        for(int num : bills) {
+            if(num == 5) {
+                five++;
+            } else if(num == 10) {
+                ten++;
+                five--;
+            } else {
+                if(ten > 0) {
+                    ten--;
+                    five--;
+                } else {
+                    five -= 3;
+                }
+            }
+
+            if(five < 0) return false;
+        }
+
+        return true;
+    }
+};
